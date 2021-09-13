@@ -3,7 +3,8 @@ const loadProducts = () => {
   showProducts(data);
 };
 
-// show all product in UI 
+/////////// show all product in UI ///////////
+
 const showProducts = (products) => {
   const allProducts = products.map((pd) => pd);
   for (const product of allProducts) {
@@ -17,14 +18,14 @@ const showProducts = (products) => {
         <div class="card-body">
           <h5 class="card-title">${product.title}</h5>
           <p>Category: ${product.category}</p>
-
         </div>
+
         <div class="card-footer">
-        <h2>Price: $ ${product.price}</h2>
-        <h6>Ratings: (${product.rating.rate})</h6>
-        <h6>Reviews: (${product.rating.count})</h6>
-        <button onclick="addToCart(${product.id},${product.price})" class="btn btn-success">add to cart</button>
-        <button id="details-btn" class="btn btn-danger">Details</button>
+          <h2>Price: $ ${product.price}</h2>
+          <h6 class="text-danger">Ratings: ${product.rating.rate}</h6>
+          <h6 class="text-success">Reviews: (${product.rating.count})</h6>
+          <button onclick="addToCart(${product.id},${product.price})" class="btn btn-success">add to cart</button>
+          <button id="details-btn" class="btn btn-danger">Details</button>
         </div>
 
       </div>
@@ -32,17 +33,16 @@ const showProducts = (products) => {
     document.getElementById("all-products").appendChild(div);
   };
 };
-/////////  search to catagories 
+/////////  search to catagories  ///////////
+
 document.getElementById('search-btn').addEventListener('click', function () {
   const searchInput = document.getElementById('search-input');
   const searchText = searchInput.value;
   console.log('your search result is not found:=', searchText);
   searchInput.value = '';
 });
+/////////  onclick to work function  //////////
 
-
-///////////
-/////  onclick to work function
 let count = 0;
 const addToCart = (id, price) => {
   count = count + 1;
@@ -51,14 +51,16 @@ const addToCart = (id, price) => {
   updateTaxAndCharge();
   document.getElementById("total-Products").innerText = count;
 };
-////  price converted ;
+//////////  price converted ///////////
+
 const getInputValue = (id) => {
   const element = document.getElementById(id).innerText;
   const converted = parseFloat(element);
   return converted;
 };
 
-// main price update function
+/////////  main price update function  //////////
+
 const updatePrice = (id, value) => {
   const convertedOldPrice = getInputValue(id);
   const convertPrice = parseFloat(value);
@@ -67,12 +69,12 @@ const updatePrice = (id, value) => {
   updateTotal();
 };
 
-// set innerText function
+/////////  set innerText function  /////////
 const setInnerText = (id, value) => {
   document.getElementById(id).innerText = value.toFixed(2);
 };
 
-// //update delivery charge and total Tax//
+/////////  update delivery charge and total Tax  ////////////
 
 const updateTaxAndCharge = () => {
   const priceConverted = getInputValue("price");
@@ -93,10 +95,9 @@ const updateTaxAndCharge = () => {
     updateTotal();
   }
 };
-
+////////////////////////////
 //grandTotal update function
-
-// originals code ////////////
+///////////////////////////
 
 const updateTotal = () => {
   const grandTotal =
@@ -104,9 +105,5 @@ const updateTotal = () => {
     getInputValue("total-tax");
   document.getElementById("total").innerText = grandTotal;
 };
-
+//////////   load  products /////////
 loadProducts();
-
-
-
-
