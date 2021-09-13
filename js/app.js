@@ -7,21 +7,33 @@ const loadProducts = () => {
 const showProducts = (products) => {
   const allProducts = products.map((pd) => pd);
   for (const product of allProducts) {
+    // console.log(product);
     const div = document.createElement("div");
     div.classList.add("col");
-    div.innerHTML = `<div class="card shadow">
+    div.innerHTML = `<div class="card h-100 rounded shadow-lg">
+      
+       <img class="card-img-top p-3 img-fluid" src=${product.image}></img>
+       
+        <div class="card-body">
+          <h5 class="card-title">${product.title}</h5>
+          <p>Category: ${product.category}</p>
+
+        </div>
+        <div class="card-footer">
+        <h2>Price: $ ${product.price}</h2>
+        <h6>RATINGS: (${product.rating.rate})</h6>
+        <h6>Peoples: (${product.rating.count})</h6>
+        <button onclick="addToCart(${product.id},${product.price})" class="btn btn-success">add to cart</button>
+        <button id="details-btn" class="btn btn-danger">Details</button>
+        </div>
+
       </div>
-    <img class="card-img-top w-75" src=${product.image}></img>
-      <div class="card-body">
-      <h5 class="card-title">${product.title}</h5>
-      <p>Category: ${product.category}</p>
-      <h2>Price: $ ${product.price}</h2>
-      <button onclick="addToCart(${product.id},${product.price})" class="btn btn-success">add to cart</button>
-      <button id="details-btn" class="btn btn-danger">Details</button></div>
       `;
     document.getElementById("all-products").appendChild(div);
   }
 };
+///////////
+/////  onclick to work function
 let count = 0;
 const addToCart = (id, price) => {
   count = count + 1;
@@ -30,10 +42,11 @@ const addToCart = (id, price) => {
   updateTaxAndCharge();
   document.getElementById("total-Products").innerText = count;
 };
-
+////  price converted ;
 const getInputValue = (id) => {
   const element = document.getElementById(id).innerText;
   const converted = parseFloat(element);
+  console.log(converted);
   return converted;
 };
 
@@ -69,12 +82,16 @@ const updateTaxAndCharge = () => {
 };
 
 //grandTotal update function
-const updateTotal = () => {
-  const grandTotal =
-    getInputValue("price") + getInputValue("delivery-charge") +
-    getInputValue("total-tax");
-  document.getElementById("total").innerText = grandTotal;
-};
+// new code 
+
+// originals code 
+// const updateTotal = () => {
+//   const grandTotal =
+//     getInputValue("price") + getInputValue("delivery-charge") +
+//     getInputValue("total-tax");
+//   document.getElementById("total").innerText = grandTotal.toFixed(2);
+// };
+
 loadProducts();
 
 
